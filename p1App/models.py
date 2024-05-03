@@ -7,13 +7,13 @@ class CustomUserdb(AbstractUser):
     country=models.CharField(max_length=60,null=True,blank=True)
     designation=models.CharField(max_length=200,null=True,blank=True)
     proff_bio=models.CharField(max_length=300,null=True,blank=True)
-    twitter=models.URLField(blank=True)
-    linkedin=models.URLField(blank=True)
-    web=models.URLField(blank=True)
+    twitter=models.URLField(blank=True,null=True)
+    linkedin=models.URLField(blank=True,null=True)
+    web=models.URLField(blank=True,null=True)
     Location=models.CharField(max_length=300,null=True,blank=True)
     is_innovator=models.BooleanField(default=False)
     is_investor=models.BooleanField(default=False)
-    profile_pic=models.ImageField(upload_to='files',blank=True)
+    profile_pic=models.ImageField(upload_to='files',blank=True,null=True)
 
     def __str__(self):
         return self.full_name
