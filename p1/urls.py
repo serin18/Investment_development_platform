@@ -15,7 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from p1App.views import *
+from rest_framework.authtoken.views import ObtainAuthToken
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('innovator/register/',InnovatorReg.as_view(),name="innovator_reg"),
+    path('invester/register/',InvesterReg.as_view(),name="invester_reg"),
+    path('login/',LoginView.as_view(),name="login"),
+    path('logout/',LogoutView.as_view(),name="logout"),
 ]

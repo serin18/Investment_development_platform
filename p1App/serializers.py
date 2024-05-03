@@ -1,8 +1,23 @@
 from rest_framework import serializers
 from p1App.models import *
+from django.contrib.auth import authenticate
 
-class InventorRegSerial(serializers.ModelSerializer):
+class RegSerializer(serializers.ModelSerializer):
     class Meta:
         model=CustomUserdb
-        fields=['username','full_name','mobile','country','designation','proff_bio','twitter','linkedin','']
+        fields=['username','full_name','email','mobile','password']
 
+class Loginserializer(serializers.Serializer):
+    username=serializers.CharField()
+    password=serializers.CharField()
+
+    def validate(self, attrs):
+        username = attrs.get('username')
+        password = attrs.get('password')
+
+        user = authenticate(username=username, password=password)
+        if not user:
+            raise serializers.ValidationError("Incorrect username or password")
+
+        attrs['user'] = user
+        return attrs
