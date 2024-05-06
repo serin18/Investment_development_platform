@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from p1App.views import *
+from p1App.investor_views import *
+from p1App.innovator_views import *
 from rest_framework.authtoken.views import ObtainAuthToken
 
 
