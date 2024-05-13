@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles'
 ]
 
 EXTERNAL_APP=[
@@ -51,6 +51,11 @@ INSTALLED_APPS += EXTERNAL_APP
 AUTH_USER_MODEL='p1App.CustomUserdb'
 
 CORS_ALLOW_ALL_ORGIN = True
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+    ]
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',

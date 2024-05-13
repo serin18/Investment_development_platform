@@ -2,35 +2,39 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class CustomUserdb(AbstractUser):
-    full_name=models.CharField(max_length=60,null=True)
-    mobile=models.PositiveBigIntegerField(null=True)
-    country=models.CharField(max_length=60,null=True)
-    designation=models.CharField(max_length=200,null=True)
-    proff_bio=models.CharField(max_length=300,null=True)
-    twitter=models.URLField()
-    linkedin=models.URLField()
-    web=models.URLField()
-    Location=models.CharField(max_length=300,null=True)
+    full_name=models.CharField(max_length=60,null=False)
+    mobile=models.PositiveBigIntegerField(null=False)
+    country=models.CharField(max_length=60,null=True,blank=True)
+    designation=models.CharField(max_length=200,null=True,blank=True)
+    proff_bio=models.CharField(max_length=300,null=True,blank=True)
+    twitter=models.URLField(blank=True,null=True)
+    linkedin=models.URLField(blank=True,null=True)
+    web=models.URLField(blank=True,null=True)
+    Location=models.CharField(max_length=300,null=True,blank=True)
     is_innovator=models.BooleanField(default=False)
     is_investor=models.BooleanField(default=False)
-    profile_pic=models.ImageField(upload_to='files',blank=True)
+    profile_pic=models.ImageField(upload_to='files',blank=True,null=True)
 
     def __str__(self):
         return self.full_name
 
 class Categorydb(models.Model):
-    c_name=models.CharField(max_length=30,null=True)
+    c_name=models.CharField(max_length=30)
 
 class Projectdb(models.Model):
     project_name=models.CharField(max_length=40)
     description=models.TextField(max_length=500)
-    category=models.ForeignKey(Categorydb,on_delete=models.CASCADE,null=True)
-    amount=models.DecimalField(null=True,max_digits=10, decimal_places=2)
-    inovator=models.ForeignKey(CustomUserdb,on_delete=models.CASCADE,null=True)
+    category=models.ForeignKey(Categorydb,on_delete=models.CASCADE)
+    amount=models.DecimalField(max_digits=10, decimal_places=2)
+    inovator=models.ForeignKey(CustomUserdb,on_delete=models.CASCADE)
+    active = models.BooleanField(default=True)
+
+    def can_delete(self):
+        return not self.transaction_set.exists()
 
 class projectupdatedb(models.Model):
-    project_name=models.ForeignKey(Projectdb,on_delete=models.CASCADE,null=True)
-    update_message=models.CharField(max_length=300,null=True)
+    project_name=models.ForeignKey(Projectdb,on_delete=models.CASCADE)
+    update_message=models.CharField(max_length=300)
     date_time=models.DateTimeField(auto_now=True)
 
 class Messagedb(models.Model):
@@ -57,6 +61,7 @@ class Paymentdb(models.Model):
     Bool=models.BooleanField(default=False)
     date_rec=models.DateTimeField(auto_now=True)
     refund_date=models.DateTimeField(auto_now=True)
+
 
 
 
