@@ -7,7 +7,6 @@ from django.contrib.auth import login,logout
 from rest_framework.authtoken.models import Token
 
 
-# Create your views here.
 
 class InnovatorReg(APIView):
     serializer_class=RegSerializer
@@ -16,8 +15,10 @@ class InnovatorReg(APIView):
         if serializer.is_valid():
             serializer.validated_data['is_innovator'] = True
             user = CustomUserdb.objects.create_user(**serializer.validated_data)
-            return Response({'message': 'registered successfully'}, status=status.HTTP_201_CREATED)
+            return Response({'message': 'registered successfully'}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 class InvesterReg(APIView):
     serializer_class=RegSerializer
@@ -28,6 +29,8 @@ class InvesterReg(APIView):
             user = CustomUserdb.objects.create_user(**serializer.validated_data)
             return Response({'message': 'registered successfully'}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+        
+        
         
 class LoginView(APIView):
     def post(self, request):

@@ -50,12 +50,12 @@ INSTALLED_APPS += EXTERNAL_APP
 
 AUTH_USER_MODEL='p1App.CustomUserdb'
 
-CORS_ALLOW_ALL_ORGIN = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
