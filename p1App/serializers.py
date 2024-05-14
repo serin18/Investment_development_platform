@@ -7,6 +7,7 @@ class RegSerializer(serializers.ModelSerializer):
         model=CustomUserdb
         fields=['username','full_name','email','mobile','password']
 
+
 class Loginserializer(serializers.Serializer):
     username=serializers.CharField()
     password=serializers.CharField()
@@ -21,3 +22,18 @@ class Loginserializer(serializers.Serializer):
 
         attrs['user'] = user
         return attrs
+
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Projectdb
+        fields = ['project_name','description','category','amount','end_date','image']
+    
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Categorydb
+        fields = "__all__"
+
+class UpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = projectupdatedb
+        fields = "__all__"
