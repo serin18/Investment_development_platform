@@ -4,9 +4,12 @@ from p1App.serializers import *
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import login,logout
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
 
 
+<<<<<<< HEAD
 
 
 
@@ -179,6 +182,8 @@ from rest_framework.authtoken.models import Token
 
 
 # Create your views here.
+=======
+>>>>>>> f6a76b6aeb9cd02726da79bdb8c653eeead6875f
 
 class InnovatorReg(APIView):
     serializer_class=RegSerializer
@@ -187,8 +192,10 @@ class InnovatorReg(APIView):
         if serializer.is_valid():
             serializer.validated_data['is_innovator'] = True
             user = CustomUserdb.objects.create_user(**serializer.validated_data)
-            return Response({'message': 'registered successfully'}, status=status.HTTP_201_CREATED)
+            return Response({'message': 'registered successfully'}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 class InvesterReg(APIView):
     serializer_class=RegSerializer
@@ -199,8 +206,10 @@ class InvesterReg(APIView):
             user = CustomUserdb.objects.create_user(**serializer.validated_data)
             return Response({'message': 'registered successfully'}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
-        
+    
 class LoginView(APIView):
+    authentication_classes = [TokenAuthentication]
+    serializer_class= Loginserializer
     def post(self, request):
         serializer = Loginserializer(data=request.data)
         try:
