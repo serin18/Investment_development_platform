@@ -38,7 +38,7 @@ class Projectdb(models.Model):
     
 
 class projectupdatedb(models.Model):
-    project_name=models.ForeignKey(Projectdb,on_delete=models.CASCADE)
+    project_name=models.ForeignKey(Projectdb,on_delete=models.CASCADE,null=True)
     update_message=models.CharField(max_length=300)
     date_time=models.DateTimeField(auto_now=True)
 

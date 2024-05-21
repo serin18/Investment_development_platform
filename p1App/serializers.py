@@ -22,6 +22,8 @@ class Loginserializer(serializers.Serializer):
 
         attrs['user'] = user
         return attrs
+    
+#innovator Serializers    
 
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
@@ -36,4 +38,6 @@ class CategorySerializer(serializers.ModelSerializer):
 class UpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = projectupdatedb
-        fields = "__all__"
+        fields = ['update_message']
+        
+#investor Serializers        

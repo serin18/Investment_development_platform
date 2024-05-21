@@ -28,14 +28,22 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+    
+    
     path('admin/', admin.site.urls),
     path('innovator/register/',InnovatorReg.as_view(),name="innovator_reg"),
     path('invester/register/',InvesterReg.as_view(),name="invester_reg"),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/',LogoutView.as_view(),name="logout"),
+    
+    #innovator Urls
+    
     path("project/",ProjectApi.as_view(),name="pjct"),
     path("project/<int:pk>",ProjectApi.as_view(),name="pjct"),
     path("category/",CatogariView.as_view(),name="category"),
+    path("update/<int:pk>",UpdateView.as_view(),name="update"), #updates of projects from innovator
+    
+    #investor Urls
     path("projectview/<int:pk>",ProjectView.as_view(),name="prjview"),
-    path("update/",UpdateView.as_view(),name="update"),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

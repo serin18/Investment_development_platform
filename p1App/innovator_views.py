@@ -64,12 +64,22 @@ class ProjectApi(APIView):
 class UpdateView(APIView):
     permission_classes=[permissions.IsAuthenticated]
 
-    def post (self,request,*args,**kwargs):
-        serializer = UpdateSerializer(data = request.data)
+    def post(self, request, *args, **kwargs):
+        id = kwargs.get('pk')
+        
+        try:
+            qs = Projectdb.objects.get(id=id)
+        except Projectdb.DoesNotExist:
+            return Response({"error": "Project not found."}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = UpdateSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(data = serializer.data)
+            try:
+                serializer.save(project_name=qs)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            except Exception as e:
+                return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
-            return Response(data = serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
     
