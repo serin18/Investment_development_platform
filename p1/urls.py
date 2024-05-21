@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from p1App.views import *
 from p1App.investor_views import *
-from p1App.innovator_views import *
+from p1App.innovator_views import *    
 from rest_framework.authtoken.views import ObtainAuthToken
 
 
@@ -27,4 +27,7 @@ urlpatterns = [
     path('invester/register/',InvesterReg.as_view(),name="invester_reg"),
     path('login/',LoginView.as_view(),name="login"),
     path('logout/',LogoutView.as_view(),name="logout"),
+    path("project/",ProjectApi.as_view(),name="pjct"),
+    path("category/",CatogaryView.as_view(),name="category")
+
 ]

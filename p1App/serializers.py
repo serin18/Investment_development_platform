@@ -21,3 +21,15 @@ class Loginserializer(serializers.Serializer):
 
         attrs['user'] = user
         return attrs
+    
+
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Projectdb
+        fields = "__all__"
+    
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Categorydb
+        fields = "__all__"
+    

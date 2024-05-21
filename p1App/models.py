@@ -19,14 +19,15 @@ class CustomUserdb(AbstractUser):
         return self.full_name
 
 class Categorydb(models.Model):
-    c_name=models.CharField(max_length=30,null=True)
+    c_name=models.CharField(max_length=30)
 
 class Projectdb(models.Model):
     project_name=models.CharField(max_length=40)
     description=models.TextField(max_length=500)
-    category=models.ForeignKey(Categorydb,on_delete=models.CASCADE,null=True)
-    amount=models.DecimalField(null=True,max_digits=10, decimal_places=2)
-    inovator=models.ForeignKey(CustomUserdb,on_delete=models.CASCADE,null=True)
+    category=models.ForeignKey(Categorydb,on_delete=models.CASCADE)
+    amount=models.DecimalField(null=True,max_digits=10, decimal_places=2) 
+    inovator=models.ForeignKey(CustomUserdb,on_delete=models.CASCADE)
+    active=models.BooleanField(default=True)
 
 class projectupdatedb(models.Model):
     project_name=models.ForeignKey(Projectdb,on_delete=models.CASCADE,null=True)

@@ -51,6 +51,11 @@ INSTALLED_APPS += EXTERNAL_APP
 AUTH_USER_MODEL='p1App.CustomUserdb'
 
 CORS_ALLOW_ALL_ORGIN = True
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+    ]
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -135,3 +140,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
