@@ -52,20 +52,13 @@ class ProjectApi(APIView):
             return Response(data=serializer.data)
         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    # def delete(self, request, pk):
-    #     try:
-    #         project = Projectdb.objects.get(id=pk)
-    #     except Projectdb.DoesNotExist:
-    #         return Response(data={"message": "Project not found"}, status=status.HTTP_404_NOT_FOUND)
-        
-    #     if project.active:
-    #         return Response(data={"message": "Cannot delete an active project"}, status=status.HTTP_400_BAD_REQUEST)
-        
-    #     if project.can_delete():
-    #         project.delete()
-    #         return Response(data={"message": "Project deleted successfully"}, status=status.HTTP_200_OK)
-    #     else:
-    #         return Response(data={"message": "Cannot delete project with transactions"}, status=status.HTTP_400_BAD_REQUEST)
+    def delete(self, request, pk):
+        project = Projectdb.objects.get(id=pk)
+        if project:
+            project.delete()
+            return Response("project removed")
+        else:
+            return Response("project does not exist")
     
 
 class UpdateView(APIView):

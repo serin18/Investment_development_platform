@@ -26,7 +26,7 @@ class Loginserializer(serializers.Serializer):
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Projectdb
-        fields = ['project_name','description','category','amount','end_date','image']
+        fields = ['id','project_name','description','category','amount','end_date','image']
     
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:

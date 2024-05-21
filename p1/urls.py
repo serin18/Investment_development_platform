@@ -19,6 +19,8 @@ from p1App.views import *
 from p1App.investor_views import *
 from p1App.innovator_views import *
 from rest_framework.authtoken.views import ObtainAuthToken
+from django.conf import settings
+from django.conf.urls.static import static
 # from rest_framework.routers import DefaultRouter
 # router=DefaultRouter()
 
@@ -36,4 +38,4 @@ urlpatterns = [
     path("category/",CatogariView.as_view(),name="category"),
     path("projectview/<int:pk>",ProjectView.as_view(),name="prjview"),
     path("update/",UpdateView.as_view(),name="update"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
