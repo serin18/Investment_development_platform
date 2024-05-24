@@ -41,3 +41,11 @@ class UpdateSerializer(serializers.ModelSerializer):
         fields = ['update_message']
         
 #investor Serializers        
+
+class CustomUserdbSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUserdb
+        fields = [
+            'full_name', 'email', 'mobile', 'country', 'designation',
+            'proff_bio', 'twitter', 'linkedin', 'web', 'Location', 'profile_pic'
+        ]

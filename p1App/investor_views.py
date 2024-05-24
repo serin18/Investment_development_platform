@@ -22,5 +22,29 @@ class ProjectView(APIView):
         serializer = ProjectSerializer(projects, many=True)
         return Response(serializer.data)
         
+class ProfileUpdate(APIView):
+    permission_classes=[permissions.IsAuthenticated]
 
+    def put(self, request, *args, **kwargs):
+        user = self.request.user.id
+        try:
+            profile = CustomUserdb.objects.get(id=user)
+        except Projectdb.DoesNotExist:
+            return Response(data={"message": "Project not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = CustomUserdbSerializer(instance=profile, data=request.data,partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data=serializer.data)
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class ProfileView(APIView):
+    permission_classes=[permissions.IsAuthenticated]
+    
+    def get(self, request, *args, **kwargs):
+        user = self.request.user.id
+        profile=CustomUserdb.objects.filter(id=user)
+        serializer = CustomUserdbSerializer(profile,many=True)
+        return Response(serializer.data)
     

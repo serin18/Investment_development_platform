@@ -45,5 +45,7 @@ urlpatterns = [
     
     #investor Urls
     path("projectview/<int:pk>",ProjectView.as_view(),name="prjview"),
+    path('user/profile/update/', ProfileUpdate.as_view(), name='user_update'),
+    path("profileview/",ProfileView.as_view(),name="profile_view")
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
