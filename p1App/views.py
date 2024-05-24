@@ -6,7 +6,11 @@ from rest_framework import status
 from django.contrib.auth import login,logout
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authtoken.models import Token
+<<<<<<< HEAD
 from rest_framework.authentication import TokenAuthentication
+=======
+from rest_framework import viewsets
+>>>>>>> 2c68e8e (messgage)
 
 
 
@@ -66,3 +70,20 @@ class LogoutView(APIView):
             pass
 
         return Response({'message': 'Logged out successfully'}, status=status.HTTP_200_OK)
+    
+class MessageViewSet(viewsets.ModelViewSet):
+    queryset = Messagedb.objects.all()
+    serializer_class = MessageSerializer
+
+    def create(self, request, *args, **kwargs):
+        sender = request.user
+        receiver_id = request.data.get('receiver')
+        project_id = request.data.get('project')
+        message = request.data.get('message')
+
+        receiver = CustomUserdb.objects.get(pk=receiver_id)
+        project = Projectdb.objects.get(pk=project_id)
+
+        msg = Messagedb.objects.create(sender=sender, receiver=receiver, project=project, message=message)
+        serializer = self.get_serializer(msg)
+        return Response(serializer.data)

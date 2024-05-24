@@ -25,6 +25,7 @@ class Loginserializer(serializers.Serializer):
     
 #innovator Serializers    
 
+#innovater serializers
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Projectdb
@@ -38,6 +39,23 @@ class CategorySerializer(serializers.ModelSerializer):
 class UpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = projectupdatedb
+<<<<<<< HEAD
         fields = ['update_message']
         
 #investor Serializers        
+=======
+        fields = "__all__"
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Messagedb
+        fields = '__all__'
+
+
+#investor serializers
+
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Notificationdb
+        fields='__all__'        
+>>>>>>> 2c68e8e (messgage)

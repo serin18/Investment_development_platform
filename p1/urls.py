@@ -14,23 +14,29 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from p1App.views import *
 from p1App.investor_views import *
 from p1App.innovator_views import *
 from rest_framework.authtoken.views import ObtainAuthToken
+<<<<<<< HEAD
 from django.conf import settings
 from django.conf.urls.static import static
 # from rest_framework.routers import DefaultRouter
 # router=DefaultRouter()
+=======
+from rest_framework.routers import DefaultRouter
+router=DefaultRouter()
+>>>>>>> 2c68e8e (messgage)
 
-# router.register("project/",Project,basename="pjct")
+router.register('messages/', MessageViewSet,basename="msg")
 
 
 urlpatterns = [
     
     
     path('admin/', admin.site.urls),
+    # path('', include(router.urls)),
     path('innovator/register/',InnovatorReg.as_view(),name="innovator_reg"),
     path('invester/register/',InvesterReg.as_view(),name="invester_reg"),
     path('login/', LoginView.as_view(), name='login'),
@@ -45,5 +51,10 @@ urlpatterns = [
     
     #investor Urls
     path("projectview/<int:pk>",ProjectView.as_view(),name="prjview"),
+<<<<<<< HEAD
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+=======
+    path("update/",UpdateView.as_view(),name="update"),
+]+router.urls
+>>>>>>> 2c68e8e (messgage)

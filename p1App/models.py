@@ -43,9 +43,14 @@ class projectupdatedb(models.Model):
     date_time=models.DateTimeField(auto_now=True)
 
 class Messagedb(models.Model):
-    sender=models.ForeignKey(CustomUserdb,on_delete=models.CASCADE,null=True,related_name='sent_messages')
-    receiver=models.ForeignKey(CustomUserdb,on_delete=models.CASCADE,null=True,related_name='received_messages')
-    message=models.CharField(max_length=100,null=True)
+    sender = models.ForeignKey(CustomUserdb, on_delete=models.CASCADE, related_name='sent_messages')
+    receiver = models.ForeignKey(CustomUserdb, on_delete=models.CASCADE, related_name='received_messages')
+    project = models.ForeignKey(Projectdb, on_delete=models.CASCADE, null=True)
+    message = models.TextField(default='No message')  # Provide a default value here
+    timestamp = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return f"Message from {self.sender} to {self.receiver} regarding {self.project}"
 
 class Notificationdb(models.Model):
     sender=models.ForeignKey(CustomUserdb,on_delete=models.CASCADE,null=True,related_name='send')

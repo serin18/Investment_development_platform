@@ -50,6 +50,7 @@ INSTALLED_APPS += EXTERNAL_APP
 
 AUTH_USER_MODEL='p1App.CustomUserdb'
 
+<<<<<<< HEAD
 CORS_ALLOW_ALL_ORIGINS = True
 
 REST_FRAMEWORK = {
@@ -57,6 +58,17 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication'
      ]
 }
+=======
+CORS_ALLOW_ALL_ORGIN = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+    ]
+}
+
+
+>>>>>>> 2c68e8e (messgage)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
