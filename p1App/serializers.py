@@ -49,3 +49,8 @@ class CustomUserdbSerializer(serializers.ModelSerializer):
             'full_name', 'email', 'mobile', 'country', 'designation',
             'proff_bio', 'twitter', 'linkedin', 'web', 'Location', 'profile_pic'
         ]
+
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Notificationdb
+        exclude=['sender','receiver','project','Is_there','date_time']
