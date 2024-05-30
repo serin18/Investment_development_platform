@@ -54,3 +54,16 @@ class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model=Notificationdb
         exclude=['sender','receiver','project','Is_there','date_time']
+
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Messagedb
+        fields = '__all__'
+
+
+class InvestmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Investeddb
+        fields = "__all__"

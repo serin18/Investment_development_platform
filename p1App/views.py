@@ -7,6 +7,8 @@ from django.contrib.auth import login,logout
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
+from rest_framework import status,permissions,authentication
+
 
 
 
@@ -66,3 +68,46 @@ class LogoutView(APIView):
             pass
 
         return Response({'message': 'Logged out successfully'}, status=status.HTTP_200_OK)
+    
+
+   
+class MessageViewSet(APIView):
+    def post(self, request, *args, **kwargs):
+        sender = request.user
+
+        message_data = {
+            'sender': sender.id,
+            'receiver': kwargs.get("pk"),
+            'message': request.data.get('message',request.data)
+        }
+        serializer = MessageSerializer(data=message_data)
+        if serializer.is_valid():
+            message = serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+from django.db.models import Q
+
+class ChatList(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get(self, request, *args, **kwargs):
+        user_id = self.request.user.id
+        other_user_id = kwargs.get("pk")
+        print(user_id)
+        print(other_user_id)
+        
+        
+        messages = Messagedb.objects.filter(
+            Q(sender_id=user_id, receiver_id=other_user_id) |
+            Q(sender_id=other_user_id, receiver_id=user_id)
+        )  
+        
+        serializer = MessageSerializer(messages, many=True)
+        return Response(serializer.data)
+   
+    

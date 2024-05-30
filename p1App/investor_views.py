@@ -71,3 +71,76 @@ class NotificationView(APIView):
         else:
             return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
+
+class MessageListInvestor(APIView):
+     permission_classes=[permissions.IsAuthenticated]
+
+     def get(self,request,*args,**kwargs):
+         user=self.request.user.id
+         data=Notificationdb.objects.filter(sender_id=user,Is_there=True)
+         c=[]
+         for i in data:
+            c.append(i.receiver.id)
+         user_list = []
+         for j in c:
+            qs = CustomUserdb.objects.filter(id=j)
+            for user in qs:
+                print(user.id)
+                user_list.append(user)
+         serializer = RegSerializer(user_list, many=True)
+         return Response(serializer.data)
+     
+
+class ConfirmedProjectList(APIView):
+     permission_classes=[permissions.IsAuthenticated]
+
+     def get(self,request,*args,**kwargs):
+         user=self.request.user.id
+         data=Notificationdb.objects.filter(sender_id=user,Is_there=True)
+         c=[]
+         for i in data:
+            c.append(i.project.id)
+         project_list = []
+         for j in c:
+            qs = Projectdb.objects.filter(id=j)
+            for user in qs:
+                print(user.id)
+                project_list.append(user)
+         serializer = ProjectSerializer(project_list, many=True)
+         return Response(serializer.data)
+     
+
+
+class AddInvestment(APIView):
+    permission_classes=[permissions.IsAuthenticated]
+
+    def post(self,request,*args,**kwargs):
+        user=self.request.user.id
+        project = kwargs.get("pk")
+        imvestment_data = {
+            'project_name':project,
+            'investor': user ,  
+        }
+        serializer = InvestmentSerializer(data = imvestment_data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data = serializer.data)
+        else:
+            return Response(data = serializer.errors)
+        
+
+
+class MyInvestments(APIView):
+    permission_classes=[permissions.IsAuthenticated]
+
+    def get(self,request,*args,**kwargs):
+        user=self.request.user.id
+        data=Investeddb.objects.filter(investor_id=user)
+        serializer = InvestmentSerializer(data, many=True)
+        return Response(serializer.data)
+
+     
+
+        
+        
+

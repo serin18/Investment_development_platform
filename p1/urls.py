@@ -35,6 +35,9 @@ urlpatterns = [
     path('invester/register/',InvesterReg.as_view(),name="invester_reg"),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/',LogoutView.as_view(),name="logout"),
+    path("send/message/<int:pk>",MessageViewSet.as_view(),name="send_msg"),
+    path("Chat/History/<int:pk>",ChatList.as_view(),name="chat"),
+    
     
     #innovator Urls
     
@@ -42,11 +45,21 @@ urlpatterns = [
     path("project/<int:pk>",ProjectApi.as_view(),name="pjct"),
     path("category/",CatogariView.as_view(),name="category"),
     path("update/<int:pk>",UpdateView.as_view(),name="update"), #updates of projects from innovator
+    path("notification/view",NotificationViewAPI.as_view(),name="notify"),
+    path("confirm/notify/<int:pk>",NotificationConfirm.as_view(),name="confirm"),
+    path("reject/notification/<int:pk>",RemoveNotification.as_view(),name="reject"),
+    path("notified/list/",MessageList.as_view(),name="msg"),
+    path("list/investor/<int:pk>",InvestedProjects.as_view(),name="invested"),
     
     #investor Urls
     path("projectview/<int:pk>",ProjectView.as_view(),name="prjview"),
     path('user/profile/update/', ProfileUpdate.as_view(), name='user_update'),
     path("profileview/",ProfileView.as_view(),name="profile_view"),
     path("project/notify/<int:pk>",NotificationView.as_view(),name="notyview"),
+    path("send/message/rcv/",MessageListInvestor.as_view(),name="invs_msg"),
+    path("project/list/",ConfirmedProjectList.as_view(),name="pjr"),
+    path("Add/Investment/<int:pk>",AddInvestment.as_view(),name="investment"),
+    path("Investment/done/",MyInvestments.as_view(),name="invest_list")
+    
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
