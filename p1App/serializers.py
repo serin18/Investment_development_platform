@@ -47,7 +47,7 @@ class CustomUserdbSerializer(serializers.ModelSerializer):
         model = CustomUserdb
         fields = [
             'full_name', 'email', 'mobile', 'country', 'designation',
-            'proff_bio', 'twitter', 'linkedin', 'web', 'Location', 'profile_pic'
+            'proff_bio', 'twitter', 'linkedin', 'web', 'Location', 'profile_pic','dob','address','gender','instagram'
         ]
 
 class NotificationSerializer(serializers.ModelSerializer):

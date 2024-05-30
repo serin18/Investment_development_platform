@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from rest_framework.views import APIView
 from p1App.models import *
 from p1App.serializers import *
@@ -98,14 +99,16 @@ class ChatList(APIView):
     def get(self, request, *args, **kwargs):
         user_id = self.request.user.id
         other_user_id = kwargs.get("pk")
-        print(user_id)
-        print(other_user_id)
-        
-        
+
+        now = datetime.now()
+
+        time_threshold = now - timedelta(hours=24)
+
         messages = Messagedb.objects.filter(
             Q(sender_id=user_id, receiver_id=other_user_id) |
-            Q(sender_id=other_user_id, receiver_id=user_id)
-        )  
+            Q(sender_id=other_user_id, receiver_id=user_id),
+            created_at__gte=time_threshold
+        )
         
         serializer = MessageSerializer(messages, many=True)
         return Response(serializer.data)

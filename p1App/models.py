@@ -8,6 +8,15 @@ class CustomUserdb(AbstractUser):
     designation=models.CharField(max_length=200,null=True,blank=True)
     proff_bio=models.CharField(max_length=300,null=True,blank=True)
     twitter=models.URLField(blank=True,null=True)
+    dob= models.DateField(null=True, blank=True) 
+    GENDER_CHOICES = [
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+        ('Other', 'Other'),
+    ]
+    gender=models.CharField(max_length=20, choices=GENDER_CHOICES, null=True, blank=True)
+    address=models.TextField(null=True)
+    instagram=models.CharField(max_length=200,null=True)
     linkedin=models.URLField(blank=True,null=True)
     web=models.URLField(blank=True,null=True)
     Location=models.CharField(max_length=300,null=True,blank=True)
@@ -46,6 +55,7 @@ class Messagedb(models.Model):
     sender=models.ForeignKey(CustomUserdb,on_delete=models.CASCADE,null=True,related_name='sent_messages')
     receiver=models.ForeignKey(CustomUserdb,on_delete=models.CASCADE,null=True,related_name='received_messages')
     message=models.CharField(max_length=100,null=True)
+    created_at = models.DateTimeField(auto_now_add=True,null=True)
 
 class Notificationdb(models.Model):
     sender=models.ForeignKey(CustomUserdb,on_delete=models.CASCADE,null=True,related_name='send')

@@ -31,8 +31,8 @@ class ProfileUpdate(APIView):
         user = self.request.user.id
         try:
             profile = CustomUserdb.objects.get(id=user)
-        except Projectdb.DoesNotExist:
-            return Response(data={"message": "Project not found"}, status=status.HTTP_404_NOT_FOUND)
+        except CustomUserdb.DoesNotExist:
+            return Response(data={"message": "Profile not found"}, status=status.HTTP_404_NOT_FOUND)
         
         serializer = CustomUserdbSerializer(instance=profile, data=request.data,partial=True)
         if serializer.is_valid():
